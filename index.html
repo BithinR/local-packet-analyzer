@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Traffic Triage Tool</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Network Traffic Triage Tool</h1>
+            <p class="subtitle">Educational network triage tool. Alerts indicate activity worth investigating and do not prove malicious behaviour.</p>
+            <div class="privacy-banner">
+                <strong>🔒 Privacy Guarantee:</strong> Your packet capture data is analysed locally in your browser and is not uploaded anywhere.
+            </div>
+            <p class="disclaimer">Only analyse traffic from systems and networks you own or are authorised to monitor.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="educational-section">
+            <h2>How to Think Like an Analyst</h2>
+            <p class="insight-quote">"An anomaly is a starting point for investigation, not proof of compromise."</p>
+            <ol>
+                <li><strong>Observe unusual behaviour:</strong> Let the detections guide your attention.</li>
+                <li><strong>Identify the source and destination:</strong> Who is talking to whom?</li>
+                <li><strong>Determine the protocol:</strong> Is it web traffic, DNS, or something unexpected?</li>
+                <li><strong>Establish expectations:</strong> Is this a busy server where high traffic is normal, or a quiet endpoint?</li>
+                <li><strong>Look for supporting indicators:</strong> Does a host scanning the network also attempt to download unknown files?</li>
+                <li><strong>Correlate:</strong> Check other security telemetry (like endpoint logs) if available.</li>
+                <li><strong>Decide:</strong> Determine whether the activity is benign, misconfigured, or genuinely suspicious.</li>
+            </ol>
+            
+            <h3>Wireshark Instructions</h3>
+            <p>1. Open Wireshark. 2. Capture traffic. 3. Stop capture. 4. Go to File > Export Packet Dissections > As CSV. 5. Upload below.</p>
+        </section>
+
+        <section class="controls-section">
+            <div class="upload-area" id="drop-zone">
+                <h2>Upload Wireshark CSV</h2>
+                <p>Drag and drop your CSV file here, or click to select.</p>
+                <input type="file" id="file-input" accept=".csv" class="hidden-input">
+                <button id="upload-btn" class="primary-btn">Select CSV File</button>
+                <div id="upload-status"></div>
+            </div>
+
+            <div class="test-mode">
+                <h3>Test Mode (Demo Data)</h3>
+                <button id="btn-normal" class="secondary-btn">Load Normal Sample</button>
+                <button id="btn-high-volume" class="secondary-btn">Load Suspicious Sample</button>
+                <button id="btn-mixed" class="secondary-btn">Load Mixed SOC Lab</button>
+            </div>
+        </section>
+
+        <section class="thresholds-section">
+            <h2>Detection Thresholds</h2>
+            <p>Thresholds should be adjusted based on the environment. A busy server may legitimately generate thousands of packets, while the same activity from another endpoint might deserve investigation.</p>
+            <div class="grid-controls">
+                <label>Packets per source: <input type="number" id="thresh-packets" value="50"></label>
+                <label>Unique destinations: <input type="number" id="thresh-destinations" value="10"></label>
+                <label>Unique ports: <input type="number" id="thresh-ports" value="10"></label>
+                <label>ICMP packets: <input type="number" id="thresh-icmp" value="30"></label>
+                <label>DNS packets: <input type="number" id="thresh-dns" value="30"></label>
+                <label>Repeated src-to-dst: <input type="number" id="thresh-repeated" value="40"></label>
+            </div>
+            <button id="btn-reset" class="secondary-btn" style="margin-top: 10px;">Reset Defaults</button>
+        </section>
+
+        <section id="dashboard" class="dashboard hidden">
+            <h2>Network Overview</h2>
+            <div class="summary-cards">
+                <div class="card">
+                    <h3>Total Packets</h3>
+                    <p id="stat-total-packets">0</p>
+                </div>
+                <div class="card">
+                    <h3>Unique Sources</h3>
+                    <p id="stat-unique-sources">0</p>
+                </div>
+                <div class="card">
+                    <h3>Unique Destinations</h3>
+                    <p id="stat-unique-destinations">0</p>
+                </div>
+                <div class="card">
+                    <h3>Most Active Protocol</h3>
+                    <p id="stat-top-protocol">None</p>
+                </div>
+            </div>
+
+            <div class="grid-layout">
+                <div class="grid-panel">
+                    <h3>Top Source Hosts</h3>
+                    <ul id="list-top-sources" class="data-list"></ul>
+                </div>
+                <div class="grid-panel">
+                    <h3>Top Destinations</h3>
+                    <ul id="list-top-destinations" class="data-list"></ul>
+                </div>
+                <div class="grid-panel">
+                    <h3>Protocol Distribution</h3>
+                    <ul id="list-protocols" class="data-list"></ul>
+                </div>
+            </div>
+
+            <div class="alerts-header">
+                <h2>Investigation Alerts</h2>
+                <input type="text" id="alert-filter" placeholder="Filter alerts by IP, protocol, or severity..." class="filter-input">
+            </div>
+            <div id="alerts-container">
+                <!-- Alerts will be injected here by JavaScript -->
+            </div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
