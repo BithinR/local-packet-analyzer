@@ -86,4 +86,4 @@ For example, a host generating high packet volume (+20 points) while simultaneou
 The Network Traffic Triage Tool successfully bridges the gap between raw data ingestion and analytical triage. By enforcing a strict client-side privacy model and prioritizing transparent, actionable intelligence over opaque alerting, it serves as a highly effective utility for rapid localized network assessment and analyst training.
 
 ---
-**CONFIDENTIAL — AUTHORISED PERSONNEL ONLY**[cite: 2]
+Note: The IP addresses does not belong to anyone, they are mock ip addresses.
