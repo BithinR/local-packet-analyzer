@@ -33,7 +33,7 @@ Strict data governance was a primary architectural requirement.
 
 <div align="center">
 
-<img width="347" height="261" alt="image" src="https://github.com/user-attachments/assets/cb053600-6557-4f83-9e32-a811f84484b3" />
+<img width="700" height="500" alt="image" src="https://github.com/user-attachments/assets/cb053600-6557-4f83-9e32-a811f84484b3" />
 
 </div>
 
@@ -57,7 +57,7 @@ The custom Javascript analysis engine evaluates parsed traffic against seven cor
 
 <div align="center">
 
-<img width="349" height="410" alt="image" src="https://github.com/user-attachments/assets/5eef8737-e4f7-4bc6-8f4a-c0da3dc1972d" />
+<img width="700" height="800" alt="image" src="https://github.com/user-attachments/assets/5eef8737-e4f7-4bc6-8f4a-c0da3dc1972d" />
 
 </div>
 
